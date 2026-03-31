@@ -2,6 +2,7 @@ import { MealsSummary } from "@/components/diaryPage/MealsSummary"
 import { NutritionSummary } from "@/components/diaryPage/NutritionSummary"
 import { InsightsCard } from "@/components/diaryPage/InsightsCard"
 import { DailyTasksCard } from "@/components/diaryPage/DailyTasksCard"
+import { MotivationalQuote } from "@/components/diaryPage/MotivationalQuote"
 import { StreakBadge } from "@/components/diaryPage/StreakBadge"
 import { Header } from "@/components/Header"
 import { paddingTopForHeader } from "@/constants/Theme"
@@ -202,6 +203,7 @@ export default function DiaryScreen() {
 				/>
 			</View>
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
+				<MotivationalQuote date={selectedDate} />
 				<InsightsCard insights={insights} />
 				<View style={styles.nutritionSummary}>
 					{targetCalories && (
