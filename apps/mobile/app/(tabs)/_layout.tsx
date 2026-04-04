@@ -39,6 +39,25 @@ export default function TabLayout() {
 			}}
 		>
 			<Tabs.Screen
+				name="tasks"
+				listeners={{
+					tabPress: handleTabPress,
+				}}
+				options={{
+					title: "Tasks",
+					headerShown: false,
+					tabBarLabelStyle: styles.label,
+					tabBarButtonTestID: "tab-tasks",
+					tabBarIcon: ({ color, focused }) => (
+						<Ionicons
+							name={focused ? "checkbox" : "checkbox-outline"}
+							color={color}
+							size={24}
+						/>
+					),
+				}}
+			/>
+			<Tabs.Screen
 				name="diary"
 				listeners={{
 					tabPress: handleTabPress,
