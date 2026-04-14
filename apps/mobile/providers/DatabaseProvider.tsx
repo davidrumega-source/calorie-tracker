@@ -134,6 +134,20 @@ export const DiaryProvider: React.FC<{ children: React.ReactNode }> = ({
 					`CREATE INDEX IF NOT EXISTS favorite_food_food_id ON favorite_food(food_id);`
 				)
 
+				await database.execAsync(
+					`CREATE TABLE IF NOT EXISTS daily_tasks (
+						id INTEGER PRIMARY KEY AUTOINCREMENT,
+						title TEXT NOT NULL,
+						icon TEXT NOT NULL,
+						date TEXT NOT NULL,
+						completed BOOLEAN NOT NULL DEFAULT 0
+					);`
+				)
+
+				await database.execAsync(
+					`CREATE INDEX IF NOT EXISTS daily_tasks_date ON daily_tasks(date);`
+				)
+
 				// Migration v1: add sync metadata columns
 				const versionRow = await database.getFirstAsync<{ user_version: number }>(
 					"PRAGMA user_version"

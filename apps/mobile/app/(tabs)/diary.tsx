@@ -1,10 +1,13 @@
 import { MealsSummary } from "@/components/diaryPage/MealsSummary"
 import { NutritionSummary } from "@/components/diaryPage/NutritionSummary"
 import { InsightsCard } from "@/components/diaryPage/InsightsCard"
+import { DailyTasksCard } from "@/components/diaryPage/DailyTasksCard"
+import { MotivationalQuote } from "@/components/diaryPage/MotivationalQuote"
 import { StreakBadge } from "@/components/diaryPage/StreakBadge"
 import { Header } from "@/components/Header"
 import { paddingTopForHeader } from "@/constants/Theme"
 import { useNutritionData } from "@/hooks/useNutritionData"
+import { useDailyTasks } from "@/hooks/useDailyTasks"
 import useNavigationBarColor from "@/hooks/useNavigationBarColor"
 import { useThemeColor } from "@/hooks/useThemeColor"
 import { useSelectedDate } from "@/hooks/useSelectedDate"
@@ -122,6 +125,9 @@ export default function DiaryScreen() {
 		date: selectedDate,
 	})
 
+	const { tasks, toggleTask, completedCount, totalCount } =
+		useDailyTasks(selectedDate)
+
 	const { calculateTotal } = useSummary()
 
 	const breakfastSummary = useMemo(
@@ -197,6 +203,7 @@ export default function DiaryScreen() {
 				/>
 			</View>
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
+				<MotivationalQuote date={selectedDate} />
 				<InsightsCard insights={insights} />
 				<View style={styles.nutritionSummary}>
 					{targetCalories && (
@@ -223,6 +230,12 @@ export default function DiaryScreen() {
 						/>
 					)}
 				</View>
+				<DailyTasksCard
+					tasks={tasks}
+					completedCount={completedCount}
+					totalCount={totalCount}
+					onToggle={toggleTask}
+				/>
 				<View style={styles.mealsSection}>
 					<MealsSummary
 						meals={[
